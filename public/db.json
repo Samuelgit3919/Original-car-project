@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "vehicle": "Car 1",
+    "stock": "Stock 1",
+    "age": "Age 1",
+    "detailed": "Detailed 1",
+    "location": "Location 1",
+    "person": "Person 1",
+    "status": "Available",
+    "note": "Note 1"
+  },
+  {
+    "id": 2,
+    "vehicle": "Car 2",
+    "stock": "Stock 2",
+    "age": "Age 2",
+    "detailed": "Detailed 2",
+    "location": "Location 2",
+    "person": "Person 2",
+    "status": "Unavailable",
+    "note": "Note 2"
+  },
+  {
+    "id": 3,
+    "vehicle": "Car 3",
+    "stock": "Stock 3",
+    "age": "Age 3",
+    "detailed": "Detailed 3",
+    "location": "Location 3",
+    "person": "Person 3",
+    "status": "Available",
+    "note": "Note 3"
+  }
+]
