@@ -13,7 +13,9 @@ const Header = () => {
         <header className='text-xl sticky top-0 left-0 w-full z-50 px-8 text-md font-semibold flex justify-between items-center bg-teal-900 p-2 text-white'>
             <div className='flex items-center gap-4'>
                 <FaCarSide className='text-3xl text-blue-200' />
-                <h1 className='font-semibold'>Car Management</h1>
+                <h1 className='font-semibold'>
+                    <Link to="/">Car Management</Link>
+                </h1>
             </div>
 
             {/* Desktop Navigation */}

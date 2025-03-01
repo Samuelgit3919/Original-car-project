@@ -5,7 +5,7 @@ import Layout from '../../Layout'
 const ViewCar = () => {
     return (
         <Layout>
-            <div className='flex justify-center h-screen items-start'>
+            <div className='md:flex justify-center h-screen items-start'>
                 <div className='bg-white p-6 rounded-lg shadow-md mt-5'>
                     <form className='flex flex-col gap-4'>
                         <input
