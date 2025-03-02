@@ -22,7 +22,7 @@ const CarTable = () => {
 
     return (
         <>
-            <div className="bg-white rounded-lg shadow-md overflow-x-auto m-12">
+            <div className="bg-white rounded-lg text-sm text-center shadow-md overflow-x-auto m-12">
                 <table className="w-full">
                     <thead>
                         <tr>
