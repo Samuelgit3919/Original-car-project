@@ -59,8 +59,8 @@ const Header = () => {
 
             {/* Desktop Auth Links */}
             <div className='hidden md:flex justify-center items-center gap-4 text-xl'>
-                <Link to="/signup" className='hover:text-blue-200 text-sm font-semibold transition-colors duration-200'>SignUp</Link>
-                <Link to="/login" className='bg-[#0d0c22] py-2 px-4 flex items-center font-semibold text-sm justify-center border rounded-lg hover:bg-[#1a1a2e] transition-colors duration-200'>Login</Link>
+                <Link to="/auth" className='hover:text-blue-200 text-sm font-semibold transition-colors duration-200'>SignUp</Link>
+                <Link to="/auth" className='bg-[#0d0c22] py-2 px-4 flex items-center font-semibold text-sm justify-center border rounded-lg hover:bg-[#1a1a2e] transition-colors duration-200'>Login</Link>
             </div>
         </header>
     );
