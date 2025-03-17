@@ -99,7 +99,7 @@ const Admin = () => {
     const filteredCars = cars.filter(car => {
         return (
             (car.vehicle || '').toLowerCase().includes(filters.vehicle.toLowerCase()) &&
-            (car.type || '').toLowerCase().includes(filters.type.toLowerCase()) &&
+            (car.type || '' || car.vehicle.toLowerCase().includes(filters.type.toLowerCase())) &&
             (car.location || '').toLowerCase().includes(filters.location.toLowerCase()) &&
             (filters.status === '' || car.status.toLowerCase() === filters.status.toLowerCase())
         );
@@ -225,9 +225,9 @@ const Admin = () => {
                             className="mt-1 p-2 border rounded w-full"
                         >
                             <option value="">All Types</option>
-                            <option value="Sedan">Sedan</option>
-                            <option value="SUV">SUV</option>
-                            <option value="Truck">Truck</option>
+                            <option value="Toyota Camry">Toyota Camry</option>
+                            <option value="Honda Civic">Honda Civic</option>
+                            <option value="Toyota Corolla">Toyota Corolla</option>
                         </select>
                     </div>
                     <div>
@@ -240,8 +240,9 @@ const Admin = () => {
                             className="mt-1 p-2 border rounded w-full"
                         >
                             <option value="">All Locations</option>
-                            <option value="Lot A">Lot A</option>
-                            <option value="Lot B">Lot B</option>
+                            <option value="Location 1">Location 1</option>
+                            <option value="Location 2">Location 2</option>
+                            <option value="Location 3">Location 3</option>
                         </select>
                     </div>
                     <div>
@@ -262,19 +263,20 @@ const Admin = () => {
             </div>
 
             {/* Car Table */}
+            {/* Car Table */}
             <div className="bg-white rounded-md md:mx-24 h-full text-sm text-center shadow-md overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full table-auto">
                     <thead>
                         <tr>
-                            <th className="p-4 text-center border-b font-roboto">Vehicle</th>
-                            <th className="p-4 text-center border-b font-roboto">Stock #</th>
-                            <th className="p-4 text-center border-b font-roboto">Age</th>
-                            <th className="p-4 text-center border-b font-roboto">Detailed</th>
-                            <th className="p-4 text-center border-b font-roboto">Location</th>
-                            <th className="p-4 text-center border-b font-roboto">Verified By</th>
-                            <th className="p-4 text-center border-b font-roboto">Status</th>
-                            <th className="p-4 text-center border-b font-roboto">Extra Note</th>
-                            <th className="p-4 text-center border-b font-roboto">Actions</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Vehicle</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Stock #</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Age</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Detailed</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Location</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Verified By</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Status</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Extra Note</th>
+                            <th className="p-2 md:p-4 text-center border-b font-roboto whitespace-nowrap">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -287,74 +289,78 @@ const Admin = () => {
                         ) : (
                             filteredCars.map(car => (
                                 <tr key={car.id} className={`hover:bg-gray-50 ${car.status === 'Unavailable' ? 'bg-red-100' : 'bg-green-100'}`}>
-                                    <td className="px-8 py-4 border-b">{car.vehicle}</td>
-                                    <td className="px-8 py-4 border-b">{car.stock}</td>
-                                    <td className="px-8 py-4 border-b">{car.age}</td>
-                                    <td className="px-8 py-4 border-b">{car.detailed}</td>
-                                    <td className="px-8 py-4 border-b">{car.location}</td>
-                                    <td className="px-8 py-4 border-b">{car.person}</td>
-                                    <td className="px-8 py-4  border-b  md:flex md:justify-center md:items-center ">
-                                        {editingStatus.id === car.id ? (
-                                            <select
-                                                value={editingStatus.status}
-                                                onChange={(e) => setEditingStatus({ ...editingStatus, status: e.target.value })}
-                                                className="p-1 border rounded"
-                                            >
-                                                <option value="Available">Available</option>
-                                                <option value="Unavailable">Unavailable</option>
-                                            </select>
-                                        ) : (
-                                            <span className={`px-2 py-1   rounded w-22  ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
-                                                {car.status}
-                                            </span>
-                                        )}
-                                        {editingStatus.id === car.id ? (
-                                            <button
-                                                onClick={handleSaveStatus}
-                                                className="ml-2 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                                            >
-                                                <Save className="h-4 w-4" />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={() => handleEditStatus(car)}
-                                                className="ml-2 px-2 py-1 mt-2 md:mt-0 bg-blue-500 text-white rounded hover:bg-blue-600"
-                                            >
-                                                <Edit className="h-4 w-4 " />
-                                            </button>
-                                        )}
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.vehicle}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.stock}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.age}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.detailed}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.location}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.person}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">
+                                        <div className="flex flex-col md:flex-row items-center justify-center gap-1">
+                                            {editingStatus.id === car.id ? (
+                                                <select
+                                                    value={editingStatus.status}
+                                                    onChange={(e) => setEditingStatus({ ...editingStatus, status: e.target.value })}
+                                                    className="p-1 border rounded text-sm w-full"
+                                                >
+                                                    <option value="Available">Available</option>
+                                                    <option value="Unavailable">Unavailable</option>
+                                                </select>
+                                            ) : (
+                                                <span className={`px-2 py-1 rounded text-sm whitespace-nowrap ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
+                                                    {car.status}
+                                                </span>
+                                            )}
+                                            {editingStatus.id === car.id ? (
+                                                <button
+                                                    onClick={handleSaveStatus}
+                                                    className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
+                                                >
+                                                    <Save className="h-4 w-4" />
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => handleEditStatus(car)}
+                                                    className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                                                >
+                                                    <Edit className="h-4 w-4" />
+                                                </button>
+                                            )}
+                                        </div>
                                     </td>
-                                    <td className="px-8 py-4 border-b">
-                                        {editingNote.id === car.id ? (
-                                            <input
-                                                type="text"
-                                                value={editingNote.note}
-                                                onChange={(e) => setEditingNote({ ...editingNote, note: e.target.value })}
-                                                className="p-1 border rounded"
-                                            />
-                                        ) : (
-                                            car.note
-                                        )}
-                                        {editingNote.id === car.id ? (
-                                            <button
-                                                onClick={handleSaveNote}
-                                                className="ml-2 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                                            >
-                                                <Save className="h-4 w-4" />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={() => handleEditNote(car)}
-                                                className="ml-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                                            >
-                                                <Edit className="h-4 w-4" />
-                                            </button>
-                                        )}
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">
+                                        <div className="flex items-center justify-center gap-1">
+                                            {editingNote.id === car.id ? (
+                                                <input
+                                                    type="text"
+                                                    value={editingNote.note}
+                                                    onChange={(e) => setEditingNote({ ...editingNote, note: e.target.value })}
+                                                    className="p-1 border rounded text-sm w-24 md:w-auto"
+                                                />
+                                            ) : (
+                                                <span className="text-sm truncate max-w-[100px] md:max-w-none">{car.note}</span>
+                                            )}
+                                            {editingNote.id === car.id ? (
+                                                <button
+                                                    onClick={handleSaveNote}
+                                                    className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
+                                                >
+                                                    <Save className="h-4 w-4" />
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => handleEditNote(car)}
+                                                    className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                                                >
+                                                    <Edit className="h-4 w-4" />
+                                                </button>
+                                            )}
+                                        </div>
                                     </td>
-                                    <td className="px-8 py-4 border-b">
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">
                                         <button
                                             onClick={() => handleDelete(car.id)}
-                                            className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                            className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
                                         >
                                             <Trash className="h-4 w-4" />
                                         </button>
