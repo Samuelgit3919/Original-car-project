@@ -73,7 +73,7 @@ const CarTable = () => {
                 </div>
 
                 {/* Vehicle Filters */}
-                <div className="mb-12 mx-4 md:mx-9 p-6 bg-gray-50 rounded-lg shadow-md">
+                <div className="mb-12 mx-4 md:mx-4 p-6 bg-gray-50 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
@@ -135,7 +135,7 @@ const CarTable = () => {
                 </div>
 
                 {/* Car Table */}
-                <div className="bg-white mx-4 rounded-lg md:mx-24 h-full text-sm text-center shadow-md overflow-x-auto">
+                <div className="bg-white mx-4 rounded-lg md:mx-4 h-full text-sm text-center shadow-md overflow-x-auto">
                     <table className="w-full">
                         <thead>
                             <tr>
@@ -166,8 +166,8 @@ const CarTable = () => {
                                         <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.detailed}</td>
                                         <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.location}</td>
                                         <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.person}</td>
-                                        <td className="px-8 border-b">
-                                            <span className={`px-2 py-1  rounded w-22  ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
+                                        <td className="px-8 border-b ">
+                                            <span className={`px-2 py-1 w-22 rounded text-sm whitespace-nowrap ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                                                 {car.status}
                                             </span>
                                         </td>
