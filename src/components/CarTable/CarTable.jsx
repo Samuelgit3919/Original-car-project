@@ -47,24 +47,24 @@ const CarTable = () => {
         <>
             <div className="rounded-lg text-sm text-center overflow-x-auto md:mx-26">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="flex justify-between items-center mb-8">
+                    <div className="md:flex md:justify-between md:items-center flex flex-col gap-4 mb-8">
                         <h1 className="text-3xl font-bold text-gray-900">Manager Dashboard</h1>
                         <div className="flex gap-4 items-center">
                             <div className="relative">
                                 <div className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
-                                <input
+                                {/* <input
                                     type="text"
                                     placeholder="Search cars..."
                                     className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     name="vehicle"
                                     value={filters.vehicle}
                                     onChange={handleFilterChange}
-                                />
+                                /> */}
                             </div>
                         </div>
                         <button
                             onClick={() => navigate('/auth')}
-                            className="bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-700"
+                            className="bg-gray-600 w-26 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-700"
                         >
                             <LogOut className="h-5 w-5" />
                             Logout
