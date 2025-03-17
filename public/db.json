@@ -31,7 +31,41 @@
     "person": "Jane Smith",
     "status": "Available",
     "note":"Good condition"
+  },
+  {
+    "id": 4,
+    "vehicle": "Toyota Camry",
+    "stock": "ST004",
+    "age": "2 years",
+    "detailed": "Yes",
+    "location": "Location 4",
+    "person": "Jane Smith",
+    "status": "Unavailable",
+    "note": "In maintenance"
+  },
+  {
+    "id": 5,
+    "vehicle": "Toyota Corolla",
+    "stock": "ST005",
+    "age": "3 years",
+    "detailed": "No",
+    "location": "Location 5",
+    "person": "John Doe",
+    "status": "Available",
+    "note": "Good condition"
+  },
+  {
+    "id": 6,
+    "vehicle": "Honda Civic",
+    "stock": "ST006",
+    "age": "1 year",
+    "detailed": "Yes",
+    "location": "Location 6",
+    "person": "Jane Smith",
+    "status": "Unavailable",
+    "note": "In maintenance"
   }
+
 ]
 
 

@@ -37,7 +37,7 @@ const CarTable = () => {
     const filteredCars = cars.filter(car => {
         return (
             (car.vehicle || '').toLowerCase().includes(filters.vehicle.toLowerCase()) &&
-            (car.type || '').toLowerCase().includes(filters.type.toLowerCase()) &&
+            (car.type || '' || car.vehicle.toLowerCase().includes(filters.type.toLowerCase())) &&
             (car.location || '').toLowerCase().includes(filters.location.toLowerCase()) &&
             (filters.status === '' || car.status.toLowerCase() === filters.status.toLowerCase())
         );
@@ -45,7 +45,7 @@ const CarTable = () => {
 
     return (
         <>
-            <div className="rounded-lg text-sm text-center overflow-x-auto md:mx-26">
+            <div className="rounded-lg text-sm text-center overflow-x-auto md:mx-26 mb-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="md:flex md:justify-between md:items-center  gap-4 mb-8">
                         <h1 className="text-3xl font-bold text-gray-900">Manager Dashboard</h1>
@@ -73,7 +73,7 @@ const CarTable = () => {
                 </div>
 
                 {/* Vehicle Filters */}
-                <div className="mb-12 md:mx-24 p-6 bg-gray-50 rounded-lg shadow-md">
+                <div className="mb-12 md:mx-9 p-6 bg-gray-50 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
@@ -98,9 +98,9 @@ const CarTable = () => {
                                 className="mt-1 p-2 border rounded w-full"
                             >
                                 <option value="">All Types</option>
-                                <option value="Sedan">Sedan</option>
-                                <option value="SUV">SUV</option>
-                                <option value="Truck">Truck</option>
+                                <option value="Honda Civic">Honda Civic</option>
+                                <option value="Toyota Corolla">Toyota Corolla</option>
+                                <option value="Toyota Camry">Toyota Camry</option>
                             </select>
                         </div>
                         <div>
@@ -113,8 +113,8 @@ const CarTable = () => {
                                 className="mt-1 p-2 border rounded w-full"
                             >
                                 <option value="">All Locations</option>
-                                <option value="Lot A">Lot A</option>
-                                <option value="Lot B">Lot B</option>
+                                <option value="Location 1">Location 1</option>
+                                <option value="Location 2">Location 2</option>
                             </select>
                         </div>
                         <div>
@@ -158,7 +158,7 @@ const CarTable = () => {
                                 </tr>
                             ) : (
                                 filteredCars.map(car => (
-                                    <tr key={car.id} className={`hover:bg-gray-50 ${car.status === 'Available' ? 'bg-green-100' : 'bg-red-100'}`}>
+                                    <tr key={car.id} className={`hover:bg-gray-50  ${car.status === 'Available' ? 'bg-green-100' : 'bg-red-100'}`}>
                                         <td className="px-8 border-b">{car.vehicle}</td>
                                         <td className="px-8 border-b">{car.stock}</td>
                                         <td className="px-8 border-b">{car.age}</td>
@@ -166,7 +166,7 @@ const CarTable = () => {
                                         <td className="px-8 border-b">{car.location}</td>
                                         <td className="px-8 border-b">{car.person}</td>
                                         <td className="px-8 border-b">
-                                            <span className={`px-2 py-1 rounded ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
+                                            <span className={`px-2 py-1  rounded w-22  ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                                                 {car.status}
                                             </span>
                                         </td>
