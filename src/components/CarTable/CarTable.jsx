@@ -45,7 +45,7 @@ const CarTable = () => {
 
     return (
         <>
-            <div className="rounded-lg text-sm text-center overflow-x-auto md:mx-26 mb-12">
+            <div className="rounded-lg text-sm text-start overflow-x-auto md:mx-26 mb-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="md:flex md:justify-between md:items-center  gap-4 mb-8">
                         <h1 className="text-3xl font-bold text-gray-900">Manager Dashboard</h1>
@@ -73,7 +73,7 @@ const CarTable = () => {
                 </div>
 
                 {/* Vehicle Filters */}
-                <div className="mb-12 md:mx-9 p-6 bg-gray-50 rounded-lg shadow-md">
+                <div className="mb-12 mx-8 md:mx-9 p-6 bg-gray-50 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
