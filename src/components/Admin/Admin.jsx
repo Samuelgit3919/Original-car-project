@@ -293,7 +293,7 @@ const Admin = () => {
                                     <td className="px-8 py-4 border-b">{car.detailed}</td>
                                     <td className="px-8 py-4 border-b">{car.location}</td>
                                     <td className="px-8 py-4 border-b">{car.person}</td>
-                                    <td className="px-8 py-4 border-b md:flex">
+                                    <td className="px-8 py-4  border-b  md:flex md:justify-center md:items-center ">
                                         {editingStatus.id === car.id ? (
                                             <select
                                                 value={editingStatus.status}
@@ -304,7 +304,7 @@ const Admin = () => {
                                                 <option value="Unavailable">Unavailable</option>
                                             </select>
                                         ) : (
-                                            <span className={`px-2 py-1  rounded w-22  ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
+                                            <span className={`px-2 py-1   rounded w-22  ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                                                 {car.status}
                                             </span>
                                         )}
