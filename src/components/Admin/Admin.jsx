@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LogOut, Plus, Edit, Save, Trash, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ScaleLoader } from 'react-spinners';
 
 const Admin = () => {
     const [cars, setCars] = useState([]);
@@ -281,22 +282,25 @@ const Admin = () => {
                     </thead>
                     <tbody>
                         {loading ? (
-                            <tr>
-                                <td colSpan="9" className="text-center flex justify-center items-center h-64">
-                                    <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
-                                </td>
-                            </tr>
+                            <div className='flex items-center justify-center h-64 w-64 '>
+                                <ScaleLoader className="text-grey-200 text-sm " />
+                            </div>
+                            // <td colSpan="9" className="text-center mx-auto my-0  h-64">
+
+                            //     {/* Loading... */}
+                            // </td>
+
                         ) : (
                             filteredCars.map(car => (
                                 <tr key={car.id} className={`hover:bg-gray-50 ${car.status === 'Unavailable' ? 'bg-red-100' : 'bg-green-100'}`}>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.vehicle}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.stock}</td>
-                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.age}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.age}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.detailed}</td>
-                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.location}</td>
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.location}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.person}</td>
-                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">
-                                        <div className="flex flex-col md:flex-row items-center justify-center gap-1">
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b md:flex ">
+                                        <div className="md:flex-row md:items-center md:justify-center flex  gap-1">
                                             {editingStatus.id === car.id ? (
                                                 <select
                                                     value={editingStatus.status}
@@ -307,7 +311,7 @@ const Admin = () => {
                                                     <option value="Unavailable">Unavailable</option>
                                                 </select>
                                             ) : (
-                                                <span className={`px-2 py-1 rounded text-sm whitespace-nowrap ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
+                                                <span className={`px-2 py-1 w-22 rounded text-sm whitespace-nowrap ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                                                     {car.status}
                                                 </span>
                                             )}

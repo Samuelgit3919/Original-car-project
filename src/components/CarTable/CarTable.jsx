@@ -73,7 +73,7 @@ const CarTable = () => {
                 </div>
 
                 {/* Vehicle Filters */}
-                <div className="mb-12 mx-8 md:mx-9 p-6 bg-gray-50 rounded-lg shadow-md">
+                <div className="mb-12 mx-4 md:mx-9 p-6 bg-gray-50 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
@@ -135,42 +135,43 @@ const CarTable = () => {
                 </div>
 
                 {/* Car Table */}
-                <div className="bg-white rounded-lg text-sm text-center shadow-md overflow-x-auto md:m-8">
+                <div className="bg-white mx-4 rounded-lg md:mx-24 h-full text-sm text-center shadow-md overflow-x-auto">
                     <table className="w-full">
                         <thead>
                             <tr>
-                                <th className="p-4 text-center border-b font-roboto">Vehicle</th>
-                                <th className="p-4 text-center border-b font-roboto">Stock #</th>
-                                <th className="p-4 text-center border-b font-roboto">Age</th>
-                                <th className="p-4 text-center border-b font-roboto">Detailed ?</th>
-                                <th className="p-4 text-center border-b font-roboto">Location</th>
-                                <th className="p-4 text-center border-b font-roboto">Verified in person</th>
-                                <th className="p-4 text-center border-b font-roboto">Status</th>
-                                <th className="p-4 text-center border-b font-roboto">Extra Note</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Vehicle</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Stock #</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Age</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Detailed ?</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Location</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Verified in person</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Status</th>
+                                <th className="p-4 text-center border-b font-roboto whitespace-nowrap">Extra Note</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="8" className="text-center flex justify-center items-center h-64">
-                                        <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+                                    <td colSpan="8" className="text-center  h-64">
+                                        {/* <Loader2 className="h-8 w-8 animate-spin text-gray-500" /> */}
+                                        Loading...
                                     </td>
                                 </tr>
                             ) : (
                                 filteredCars.map(car => (
                                     <tr key={car.id} className={`hover:bg-gray-50  ${car.status === 'Available' ? 'bg-green-100' : 'bg-red-100'}`}>
-                                        <td className="px-8 border-b">{car.vehicle}</td>
-                                        <td className="px-8 border-b">{car.stock}</td>
-                                        <td className="px-8 border-b">{car.age}</td>
-                                        <td className="px-8 border-b">{car.detailed}</td>
-                                        <td className="px-8 border-b">{car.location}</td>
-                                        <td className="px-8 border-b">{car.person}</td>
+                                        <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.vehicle}</td>
+                                        <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.stock}</td>
+                                        <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.age}</td>
+                                        <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.detailed}</td>
+                                        <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.location}</td>
+                                        <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.person}</td>
                                         <td className="px-8 border-b">
                                             <span className={`px-2 py-1  rounded w-22  ${car.status === 'Available' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                                                 {car.status}
                                             </span>
                                         </td>
-                                        <td className="p-4 border-b">{car.note}</td>
+                                        <td className="p-4 border-b whitespace-nowrap">{car.note}</td>
                                     </tr>
                                 ))
                             )}
