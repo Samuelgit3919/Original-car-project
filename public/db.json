@@ -1,35 +1,37 @@
 [
   {
     "id": 1,
-    "vehicle": "Car 1",
-    "stock": "Stock 1",
-    "age": "Age 1",
-    "detailed": "Detailed 1",
+    "vehicle": "Toyota Camry",
+    "stock": "ST001",
+    "age": "2 years",
+    "detailed": "Yes",
     "location": "Location 1",
-    "person": "Person 1",
+    "person": "John Doe",
     "status": "Available",
-    "note": "Note 1"
+    "note": "Excellent condition"
   },
   {
     "id": 2,
-    "vehicle": "Car 2",
-    "stock": "Stock 2",
-    "age": "Age 2",
-    "detailed": "Detailed 2",
+    "vehicle":  "Honda Civic",
+    "stock":  "ST002",
+    "age":"1 year",
+    "detailed":  "No",
     "location": "Location 2",
-    "person": "Person 2",
+    "person": "John Doe",
     "status": "Unavailable",
-    "note": "Note 2"
+    "note": "In maintenance"
   },
   {
     "id": 3,
-    "vehicle": "Car 3",
-    "stock": "Stock 3",
-    "age": "Age 3",
-    "detailed": "Detailed 3",
+    "vehicle": "Toyota Corolla",
+    "stock": "ST003",
+    "age": "3 years",
+    "detailed": "Yes",
     "location": "Location 3",
-    "person": "Person 3",
+    "person": "Jane Smith",
     "status": "Available",
-    "note": "Note 3"
+    "note":"Good condition"
   }
 ]
+
+

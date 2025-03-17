@@ -1,78 +1,71 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Car } from 'lucide-react';
 
-const Auth = () => {
-    const [isLogin, setIsLogin] = useState(true);
+export default function Login() {
+    const [email, setEmail] = useState('');
+    // const [cars, setCars] = useState([]);
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const toggleForm = () => {
-        setIsLogin(!isLogin);
+    const handleLogin = (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        // Simulate login - in real app, replace with actual authentication
+        setTimeout(() => {
+            if (email.includes('admin')) {
+                navigate('/admin');
+            } else {
+                navigate('/');
+            }
+            setLoading(false);
+        }, 1000);
     };
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-                <h1 className="text-2xl font-bold mb-6 text-center">
-                    {isLogin ? 'Login' : 'Signup'}
-                </h1>
-                <form className="space-y-4">
-                    {!isLogin && (
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Username</label>
-                            <input
-                                type="text"
-                                placeholder="Enter your username"
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                        </div>
-                    )}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
+            <div className="bg-white p-8 rounded-lg shadow-md w-96">
+                <div className="flex items-center justify-center mb-8">
+                    <Car className="h-12 w-12 text-blue-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-center mb-6">Car Management System</h2>
+                <form onSubmit={handleLogin}>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            Email
+                        </label>
                         <input
                             type="email"
-                            placeholder="Enter your email"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
+                    <div className="mb-6">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            Password
+                        </label>
                         <input
                             type="password"
-                            placeholder="Enter your password"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
                         />
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={loading}
+                        className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
                     >
-                        {isLogin ? 'Login' : 'Signup'}
+                        {loading ? 'Loading...' : 'Sign In'}
                     </button>
                 </form>
-
-                {/* Forgot Password Paragraph */}
-                {isLogin && (
-                    <p className="mt-4 text-end text-sm text-gray-600">
-                        <button
-                            onClick={() => alert('update the password')}
-                            className="text-blue-500 hover:underline focus:outline-none"
-                        >
-                            Forgot your password?
-                        </button>
-                    </p>
-                )}
-
-                {/* Toggle between Login and Signup */}
-                <p className="mt-4 text-center">
-                    {isLogin ? "Don't have an account? " : "Already have an account? "}
-                    <button
-                        onClick={toggleForm}
-                        className="text-blue-500 hover:underline focus:outline-none"
-                    >
-                        {isLogin ? 'Signup' : 'Login'}
-                    </button>
-                </p>
             </div>
         </div>
     );
-};
-
-export default Auth;
+}
