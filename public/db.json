@@ -12,10 +12,10 @@
   },
   {
     "id": 2,
-    "vehicle":  "Honda Civic",
-    "stock":  "ST002",
-    "age":"1 year",
-    "detailed":  "No",
+    "vehicle": "Honda Civic",
+    "stock": "ST002",
+    "age": "1 year",
+    "detailed": "No",
     "location": "Location 2",
     "person": "John Doe",
     "status": "Unavailable",
@@ -30,7 +30,7 @@
     "location": "Location 3",
     "person": "Jane Smith",
     "status": "Available",
-    "note":"Good condition"
+    "note": "Good condition"
   },
   {
     "id": 4,
@@ -64,8 +64,27 @@
     "person": "Jane Smith",
     "status": "Unavailable",
     "note": "In maintenance"
+  },
+  {
+    "id": 7,
+    "vehicle": "Honda Civic",
+    "stock": "ST007",
+    "age": "1 year",
+    "detailed": "Yes",
+    "location": "Location 7",
+    "person": "John Doe",
+    "status": "Unavailable",
+    "note": "Excellent condition"
+  },
+  {
+    "id": 8,
+    "vehicle": "Honda Civic",
+    "stock": "ST008",
+    "age": "1 year",
+    "detailed": "Yes",
+    "location": "Location 8",
+    "person": "Jane Smith",
+    "status": "Unavailable",
+    "note": "In maintenance"
   }
-
 ]
-
-

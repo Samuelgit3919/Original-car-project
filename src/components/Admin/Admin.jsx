@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { LogOut, Plus, Edit, Save, Trash, Loader2 } from 'lucide-react';
+import { LogOut, Plus, Edit, Save, Trash } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ScaleLoader } from 'react-spinners';
+import Layout from '../../Layout';
+import { Bar, Pie } from 'react-chartjs-2'; // Add Pie import
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+
+// Register Chart.js components (add ArcElement for Pie Chart)
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 const Admin = () => {
     const [cars, setCars] = useState([]);
@@ -14,8 +20,8 @@ const Admin = () => {
         location: '',
         status: ''
     });
-    const [showAddForm, setShowAddForm] = useState(false); // Toggle add vehicle form
-    const [newCar, setNewCar] = useState({ // State for new vehicle
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [newCar, setNewCar] = useState({
         vehicle: '',
         stock: '',
         age: '',
@@ -25,8 +31,8 @@ const Admin = () => {
         status: 'Available',
         note: ''
     });
-    const [editingNote, setEditingNote] = useState({ id: '', note: '' }); // State for editing notes
-    const [editingStatus, setEditingStatus] = useState({ id: '', status: '' }); // State for editing status
+    const [editingNote, setEditingNote] = useState({ id: '', note: '' });
+    const [editingStatus, setEditingStatus] = useState({ id: '', status: '' });
 
     useEffect(() => {
         fetchCars();
@@ -56,13 +62,13 @@ const Admin = () => {
     };
 
     const handleDelete = (id) => {
-        setCars(cars.filter(car => car.id !== id)); // Delete vehicle
+        setCars(cars.filter(car => car.id !== id));
     };
 
     const handleAddCar = () => {
-        const carWithId = { ...newCar, id: String(cars.length + 1) }; // Add unique ID
-        setCars([...cars, carWithId]); // Add new vehicle
-        setNewCar({ // Reset form
+        const carWithId = { ...newCar, id: String(cars.length + 1) };
+        setCars([...cars, carWithId]);
+        setNewCar({
             vehicle: '',
             stock: '',
             age: '',
@@ -72,29 +78,29 @@ const Admin = () => {
             status: 'Available',
             note: ''
         });
-        setShowAddForm(false); // Hide form
+        setShowAddForm(false);
     };
 
     const handleEditNote = (car) => {
-        setEditingNote({ id: car.id, note: car.note }); // Set note to edit
+        setEditingNote({ id: car.id, note: car.note });
     };
 
     const handleSaveNote = () => {
         setCars(cars.map(car =>
             car.id === editingNote.id ? { ...car, note: editingNote.note } : car
-        )); // Update note
-        setEditingNote({ id: '', note: '' }); // Reset editing state
+        ));
+        setEditingNote({ id: '', note: '' });
     };
 
     const handleEditStatus = (car) => {
-        setEditingStatus({ id: car.id, status: car.status }); // Set status to edit
+        setEditingStatus({ id: car.id, status: car.status });
     };
 
     const handleSaveStatus = () => {
         setCars(cars.map(car =>
             car.id === editingStatus.id ? { ...car, status: editingStatus.status } : car
-        )); // Update status
-        setEditingStatus({ id: '', status: '' }); // Reset editing state
+        ));
+        setEditingStatus({ id: '', status: '' });
     };
 
     const filteredCars = cars.filter(car => {
@@ -106,9 +112,100 @@ const Admin = () => {
         );
     });
 
+    // Chart Data Preparation
+    const statusCounts = filteredCars.reduce((acc, car) => {
+        acc[car.status] = (acc[car.status] || 0) + 1;
+        return acc;
+    }, {});
+
+    const barChartData = {
+        labels: Object.keys(statusCounts),
+        datasets: [
+            {
+                label: 'Vehicle Count by Status',
+                data: Object.values(statusCounts),
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)', // Available
+                    'rgba(255, 99, 132, 0.6)', // Unavailable
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const barChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Vehicle Status Distribution (Bar)',
+                font: {
+                    size: 18,
+                },
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Number of Vehicles',
+                },
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Status',
+                },
+            },
+        },
+    };
+
+    const pieChartData = {
+        labels: Object.keys(statusCounts),
+        datasets: [
+            {
+                label: 'Vehicle Status',
+                data: Object.values(statusCounts),
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)', // Available
+                    'rgba(255, 99, 132, 0.6)', // Unavailable
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const pieChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Vehicle Status Distribution (Pie)',
+                font: {
+                    size: 18,
+                },
+            },
+        },
+    };
+
     return (
-        <div className="p-8">
-            <div className="md:flex justify-between items-center mb-12 md:mx-24">
+        <Layout>
+            <div className="md:flex m-4 justify-between items-center mb-12 md:mx-24">
                 <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
                 <div className="flex gap-4">
                     <button
@@ -203,7 +300,7 @@ const Admin = () => {
             {/* Vehicle Filters */}
             <div className="mb-12 md:mx-24 p-6 bg-gray-50 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
-                <div className="grid grid-cols-1 items-center md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
                         <label htmlFor="vehicle" className="block text-sm font-medium text-gray-700">Vehicle Name</label>
                         <input
@@ -212,8 +309,8 @@ const Admin = () => {
                             name="vehicle"
                             value={filters.vehicle}
                             onChange={handleFilterChange}
-                            className="mt-1 p-1 border rounded w-full"
-                            placeholder='search by vehicle name'
+                            className="mt-1 p-2 border rounded w-full"
+                            placeholder="Search by vehicle name"
                         />
                     </div>
                     <div>
@@ -264,7 +361,6 @@ const Admin = () => {
             </div>
 
             {/* Car Table */}
-            {/* Car Table */}
             <div className="bg-white rounded-md md:mx-24 h-full text-sm text-center shadow-md overflow-x-auto">
                 <table className="w-full table-auto">
                     <thead>
@@ -282,14 +378,13 @@ const Admin = () => {
                     </thead>
                     <tbody>
                         {loading ? (
-                            <div className='flex items-center justify-center h-64 w-64 '>
-                                <ScaleLoader className="text-grey-200 text-sm " />
-                            </div>
-                            // <td colSpan="9" className="text-center mx-auto my-0  h-64">
-
-                            //     {/* Loading... */}
-                            // </td>
-
+                            <tr>
+                                <td colSpan="9" className="py-10">
+                                    <div className="flex items-center justify-center h-48">
+                                        <ScaleLoader color="#6B7280" />
+                                    </div>
+                                </td>
+                            </tr>
                         ) : (
                             filteredCars.map(car => (
                                 <tr key={car.id} className={`hover:bg-gray-50 ${car.status === 'Unavailable' ? 'bg-red-100' : 'bg-green-100'}`}>
@@ -299,8 +394,8 @@ const Admin = () => {
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.detailed}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.location}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.person}</td>
-                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b md:flex ">
-                                        <div className="md:flex-row md:items-center md:justify-center flex  gap-1">
+                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">
+                                        <div className="flex items-center justify-center gap-1">
                                             {editingStatus.id === car.id ? (
                                                 <select
                                                     value={editingStatus.status}
@@ -375,7 +470,28 @@ const Admin = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+
+            {/* Chart Section */}
+            <div className="mb-12 mt-8 md:mx-24 p-6 bg-white rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold mb-4">Vehicle Status Overview</h2>
+                {loading ? (
+                    <div className="flex items-center justify-center h-64">
+                        <ScaleLoader color="#6B7280" />
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
+                        {/* Bar Chart */}
+                        <div>
+                            <Bar data={barChartData} options={barChartOptions} />
+                        </div>
+                        {/* Pie Chart */}
+                        <div>
+                            <Pie data={pieChartData} options={pieChartOptions} />
+                        </div>
+                    </div>
+                )}
+            </div>
+        </Layout>
     );
 };
 

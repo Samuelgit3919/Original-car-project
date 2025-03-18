@@ -37,7 +37,7 @@ export default function Signup() {
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-md w-96">
                 <div className="flex items-center justify-center mb-8">
-                    <Car className="h-12 w-12 text-blue-600" />
+                    {/* <Car className="h-12 w-12 text-blue-600" /> */}
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
 
@@ -56,7 +56,7 @@ export default function Signup() {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
                     </div>
@@ -69,12 +69,12 @@ export default function Signup() {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
                     </div>
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                             Phone Number
                         </label>
@@ -82,10 +82,10 @@ export default function Signup() {
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
-                    </div>
+                    </div> */}
 
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -95,7 +95,7 @@ export default function Signup() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                             minLength="6"
                         />
@@ -109,7 +109,7 @@ export default function Signup() {
                             type="password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                             minLength="6"
                         />
