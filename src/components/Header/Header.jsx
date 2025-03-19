@@ -27,7 +27,7 @@ const Header = () => {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex items-center">
-                        <Car className="h-8 w-8 text-blue-600" />
+                        {/* <Car className="h-8 w-8 text-blue-600" /> */}
                         <span className="ml-2 text-xl font-bold text-gray-900">
                             VehicleManagement
                         </span>
@@ -128,7 +128,7 @@ const Header = () => {
                                 Home
                             </NavLink>
                             <NavLink
-                                to="/viewCar"
+                                to="/dashboard"
                                 className={({ isActive }) =>
                                     isActive
                                         ? 'block px-3 py-2 text-blue-600 bg-gray-100 rounded-md'
@@ -136,7 +136,7 @@ const Header = () => {
                                 }
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
-                                ViewCars
+                                Dashboard
                             </NavLink>
 
                             {isLoggedIn && userRole === 'manager' && (
