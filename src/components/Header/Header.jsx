@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom'; // Changed Link to NavLink
 import { Car, LogOut, Menu, X } from 'lucide-react';
-import ProtectedRoute from '../ProtetctedRoute';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,6 +14,12 @@ const Header = () => {
         setIsMobileMenuOpen(false);
         navigate('/login');
     };
+
+    // Style for active link
+    const activeLinkStyle = ({ isActive }) =>
+        isActive
+            ? 'text-blue-600 border-b-2 border-blue-600'
+            : 'text-gray-600 hover:text-blue-600';
 
     return (
         <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -30,35 +35,35 @@ const Header = () => {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center space-x-8">
-                        <Link
+                        <NavLink
                             to="/"
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                            className={activeLinkStyle}
                         >
                             Home
-                        </Link>
-                        <Link
+                        </NavLink>
+                        <NavLink
                             to="/viewCar"
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                            className={activeLinkStyle}
                         >
                             ViewCars
-                        </Link>
+                        </NavLink>
 
                         {isLoggedIn && userRole === 'manager' && (
-                            <Link
+                            <NavLink
                                 to="/manager"
-                                className="text-gray-600 hover:text-blue-600 transition-colors"
+                                className={activeLinkStyle}
                             >
                                 Manager
-                            </Link>
+                            </NavLink>
                         )}
 
                         {isLoggedIn && userRole === 'admin' && (
-                            <Link
+                            <NavLink
                                 to="/admin"
-                                className="text-gray-600 hover:text-blue-600 transition-colors"
+                                className={activeLinkStyle}
                             >
                                 Admin
-                            </Link>
+                            </NavLink>
                         )}
 
                         {isLoggedIn ? (
@@ -70,22 +75,29 @@ const Header = () => {
                                     <LogOut className="h-5 w-5 mr-2" />
                                     Logout
                                 </span>
-
                             </button>
                         ) : (
                             <div className="flex items-center space-x-4">
-                                <Link
+                                <NavLink
                                     to="/login"
-                                    className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'px-4 py-2 text-blue-600 border-b-2 border-blue-600'
+                                            : 'px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors'
+                                    }
                                 >
                                     Sign In
-                                </Link>
-                                <Link
+                                </NavLink>
+                                <NavLink
                                     to="/signup"
-                                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'px-4 py-2 bg-blue-600 text-white border-b-2 border-blue-800 rounded-md'
+                                            : 'px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors'
+                                    }
                                 >
                                     Sign Up
-                                </Link>
+                                </NavLink>
                             </div>
                         )}
                     </nav>
@@ -104,68 +116,91 @@ const Header = () => {
                 {isMobileMenuOpen && (
                     <div className="md:hidden pb-4">
                         <div className="pt-4 space-y-2">
-                            <Link
+                            <NavLink
                                 to="/"
-                                className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? 'block px-3 py-2 text-blue-600 bg-gray-100 rounded-md'
+                                        : 'block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md'
+                                }
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Home
-                            </Link>
-                            <Link
+                            </NavLink>
+                            <NavLink
                                 to="/viewCar"
-                                className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? 'block px-3 py-2 text-blue-600 bg-gray-100 rounded-md'
+                                        : 'block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md'
+                                }
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 ViewCars
-                            </Link>
+                            </NavLink>
 
                             {isLoggedIn && userRole === 'manager' && (
-                                <Link
+                                <NavLink
                                     to="/manager"
-                                    className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block px-3 py-2 text-blue-600 bg-gray-100 rounded-md'
+                                            : 'block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md'
+                                    }
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Manager
-                                </Link>
+                                </NavLink>
                             )}
 
                             {isLoggedIn && userRole === 'admin' && (
-                                <Link
+                                <NavLink
                                     to="/admin"
-                                    className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block px-3 py-2 text-blue-600 bg-gray-100 rounded-md'
+                                            : 'block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md'
+                                    }
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Admin
-                                </Link>
+                                </NavLink>
                             )}
 
                             {isLoggedIn ? (
                                 <button
                                     onClick={handleLogout}
-                                    className="ml-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                                    className="ml-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors w-full text-left"
                                 >
                                     <span className="flex items-center">
                                         <LogOut className="h-5 w-5 mr-2" />
                                         Logout
                                     </span>
-
                                 </button>
                             ) : (
                                 <div className="pt-4 border-t border-gray-200">
-                                    <Link
+                                    <NavLink
                                         to="/login"
-                                        className="block px-3 py-2 text-blue-600 hover:bg-blue-50 rounded-md"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? 'block px-3 py-2 text-blue-600 bg-blue-50 rounded-md'
+                                                : 'block px-3 py-2 text-blue-600 hover:bg-blue-50 rounded-md'
+                                        }
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         Sign In
-                                    </Link>
-                                    <Link
+                                    </NavLink>
+                                    <NavLink
                                         to="/signup"
-                                        className="block px-3 py-2 mt-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? 'block px-3 py-2 mt-2 bg-blue-600 text-white border-b-2 border-blue-800 rounded-md'
+                                                : 'block px-3 py-2 mt-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'
+                                        }
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         Sign Up
-                                    </Link>
+                                    </NavLink>
                                 </div>
                             )}
                         </div>
@@ -176,5 +211,4 @@ const Header = () => {
     );
 };
 
-// Export both components
 export default Header;
