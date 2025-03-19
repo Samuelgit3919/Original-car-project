@@ -39,7 +39,7 @@ const CarTable = () => {
     const filteredCars = cars.filter(car => {
         return (
             (car.vehicle || '').toLowerCase().includes(filters.vehicle.toLowerCase()) &&
-            (car.type || '' || car.vehicle.toLowerCase().includes(filters.type.toLowerCase())) &&
+            (car.type || '').toLowerCase().includes(filters.type.toLowerCase()) && // Fixed type filter
             (car.location || '').toLowerCase().includes(filters.location.toLowerCase()) &&
             (filters.status === '' || car.status.toLowerCase() === filters.status.toLowerCase())
         );
@@ -100,9 +100,9 @@ const CarTable = () => {
                                 className="mt-1 p-2 border rounded w-full"
                             >
                                 <option value="">All Types</option>
-                                <option value="Honda Civic">Honda Civic</option>
-                                <option value="Toyota Corolla">Toyota Corolla</option>
-                                <option value="Toyota Camry">Toyota Camry</option>
+                                {[...new Set(cars.map(car => car.type || 'Others'))].map(type => (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
                             </select>
                         </div>
                         <div>

@@ -12,7 +12,7 @@ const Header = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         setIsMobileMenuOpen(false);
-        navigate('/login');
+        navigate('/');
     };
 
     // Style for active link
