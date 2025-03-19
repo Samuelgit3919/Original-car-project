@@ -4,11 +4,29 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ScaleLoader } from 'react-spinners';
 import Layout from '../../Layout';
-import { Bar, Pie } from 'react-chartjs-2'; // Add Pie import
+import { Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
-// Register Chart.js components (add ArcElement for Pie Chart)
+// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+
+// Function to generate dynamic background colors
+const generateBackgroundColors = (count) => {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+        colors.push(`rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`);
+    }
+    return colors;
+};
+
+// Function to generate dynamic border colors
+const generateBorderColors = (count) => {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+        colors.push(`rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`);
+    }
+    return colors;
+};
 
 const Admin = () => {
     const [cars, setCars] = useState([]);
@@ -44,7 +62,7 @@ const Admin = () => {
             const enhancedData = response.data.map(car => ({
                 ...car,
                 vehicle: car.vehicle || '',
-                type: car.type || '',
+                type: car.type || 'Others',
                 location: car.location || '',
                 status: car.status || '',
             }));
@@ -106,33 +124,37 @@ const Admin = () => {
     const filteredCars = cars.filter(car => {
         return (
             (car.vehicle || '').toLowerCase().includes(filters.vehicle.toLowerCase()) &&
-            (car.type || '' || car.vehicle.toLowerCase().includes(filters.type.toLowerCase())) &&
+            (car.type || '').toLowerCase().includes(filters.type.toLowerCase()) && // Fixed type filter
             (car.location || '').toLowerCase().includes(filters.location.toLowerCase()) &&
             (filters.status === '' || car.status.toLowerCase() === filters.status.toLowerCase())
         );
     });
 
-    // Chart Data Preparation
-    const statusCounts = filteredCars.reduce((acc, car) => {
-        acc[car.status] = (acc[car.status] || 0) + 1;
+    // Chart Data Preparation for Dealership Types
+    const dealershipCounts = filteredCars.reduce((acc, car) => {
+        const dealership = car.type || 'Others';
+        acc[dealership] = (acc[dealership] || 0) + 1;
         return acc;
     }, {});
 
+    const totalVehicles = filteredCars.length;
+
+    // Generate colors for all unique dealerships/vehicles
+    const uniqueDealerships = Object.keys(dealershipCounts);
+    const backgroundColors = generateBackgroundColors(uniqueDealerships.length);
+    const borderColors = generateBorderColors(uniqueDealerships.length);
+
+    // Prepare datasets for bar chart
     const barChartData = {
-        labels: Object.keys(statusCounts),
+        labels: uniqueDealerships, // Use the unique vehicle names as labels
         datasets: [
             {
-                label: 'Vehicle Count by Status',
-                data: Object.values(statusCounts),
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)', // Available
-                    'rgba(255, 99, 132, 0.6)', // Unavailable
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                ],
-                borderWidth: 1,
+                label: 'Vehicle Count',
+                data: Object.values(dealershipCounts), // Use the counts directly
+                backgroundColor: backgroundColors, // One color per bar
+                borderColor: borderColors,
+                borderWidth: 0,
+                barThickness: 30,
             },
         ],
     };
@@ -141,13 +163,23 @@ const Admin = () => {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                display: false, // Hide legend since we only have one dataset
             },
             title: {
                 display: true,
-                text: 'Vehicle Status Distribution (Bar)',
+                text: 'Vehicle Distribution by Dealership (Bar)',
                 font: {
                     size: 18,
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        const dealership = context.label;
+                        const value = context.raw;
+                        const percentage = totalVehicles > 0 ? ((value / totalVehicles) * 100).toFixed(2) : 0;
+                        return `${dealership}: ${value} (${percentage}%)`;
+                    },
                 },
             },
         },
@@ -162,27 +194,29 @@ const Admin = () => {
             x: {
                 title: {
                     display: true,
-                    text: 'Status',
+                    text: 'Vehicles',
+                },
+                ticks: {
+                    callback: function (value, index, values) {
+                        // Truncate long labels to avoid overlap
+                        const label = uniqueDealerships[index];
+                        return label.length > 10 ? label.substring(0, 10) + '...' : label;
+                    },
                 },
             },
         },
     };
 
+    // Prepare datasets for pie chart with individual labels
     const pieChartData = {
-        labels: Object.keys(statusCounts),
+        labels: Object.keys(dealershipCounts),
         datasets: [
             {
-                label: 'Vehicle Status',
-                data: Object.values(statusCounts),
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)', // Available
-                    'rgba(255, 99, 132, 0.6)', // Unavailable
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
-                ],
-                borderWidth: 1,
+                label: 'Vehicle Distribution',
+                data: Object.values(dealershipCounts),
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
+                borderWidth: 0,
             },
         ],
     };
@@ -191,13 +225,31 @@ const Admin = () => {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                display: true,
+                position: 'bottom',
+                labels: {
+                    boxWidth: 20,
+                    padding: 20,
+                    font: {
+                        size: 14,
+                    },
+                },
             },
             title: {
                 display: true,
-                text: 'Vehicle Status Distribution (Pie)',
+                text: 'Vehicle Distribution by Dealership (Pie)',
                 font: {
                     size: 18,
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        const dealership = context.label;
+                        const value = context.raw;
+                        const percentage = totalVehicles > 0 ? ((value / totalVehicles) * 100).toFixed(2) : 0;
+                        return `${dealership}: ${value} (${percentage}%)`;
+                    },
                 },
             },
         },
@@ -215,13 +267,6 @@ const Admin = () => {
                         {showAddForm ? <X className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
                         {showAddForm ? 'Cancel' : 'Add Car'}
                     </button>
-                    {/* <button
-                        onClick={() => navigate('/')}
-                        className="bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-700"
-                    >
-                        <LogOut className="h-5 w-5" />
-                        Logout
-                    </button> */}
                 </div>
             </div>
 
@@ -323,9 +368,9 @@ const Admin = () => {
                             className="mt-1 p-2 border rounded w-full"
                         >
                             <option value="">All Types</option>
-                            <option value="Toyota Camry">Toyota Camry</option>
-                            <option value="Honda Civic">Honda Civic</option>
-                            <option value="Toyota Corolla">Toyota Corolla</option>
+                            {[...new Set(cars.map(car => car.type || 'Others'))].map(type => (
+                                <option key={type} value={type}>{type}</option>
+                            ))}
                         </select>
                     </div>
                     <div>
@@ -394,7 +439,7 @@ const Admin = () => {
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.detailed}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b whitespace-nowrap">{car.location}</td>
                                     <td className="px-2 md:px-4 py-1 md:py-2 border-b">{car.person}</td>
-                                    <td className="px-2 md:px-4 py-1 md:py-2 border-b">
+                                    <td className="px-2 md:p-4 py-1 md:py-2 border-b">
                                         <div className="flex items-center justify-center gap-1">
                                             {editingStatus.id === car.id ? (
                                                 <select
@@ -473,7 +518,7 @@ const Admin = () => {
 
             {/* Chart Section */}
             <div className="mb-12 mt-8 md:mx-24 p-6 bg-white rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Vehicle Status Overview</h2>
+                <h2 className="text-xl font-semibold mb-4">Vehicle Overview</h2>
                 {loading ? (
                     <div className="flex items-center justify-center h-64">
                         <ScaleLoader color="#6B7280" />
@@ -483,6 +528,15 @@ const Admin = () => {
                         {/* Bar Chart */}
                         <div>
                             <Bar data={barChartData} options={barChartOptions} />
+                            {/* Display total vehicles for each dealership under the bar chart */}
+                            <div className="mt-4 text-start">
+                                {Object.entries(dealershipCounts).map(([dealership, count]) => (
+                                    <span key={dealership} className="text-sm flex gap-2 text-gray-600">
+                                        <p className='font-bold'>{dealership}: </p>
+                                        <p>{count}  vehicle</p>
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                         {/* Pie Chart */}
                         <div>
@@ -490,6 +544,7 @@ const Admin = () => {
                         </div>
                     </div>
                 )}
+                <p className="text-center font-bold mt-4 text-sm text-gray-600">Total: {totalVehicles} vehicles</p>
             </div>
         </Layout>
     );

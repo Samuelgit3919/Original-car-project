@@ -1,7 +1,8 @@
 [
   {
     "id": 1,
-    "vehicle": "Toyota Camry",
+    "vehicle": "Toyota",
+    "type": "Toyota",
     "stock": "ST001",
     "age": "2 years",
     "detailed": "Yes",
@@ -12,7 +13,8 @@
   },
   {
     "id": 2,
-    "vehicle": "Honda Civic",
+    "vehicle": "Chevy",
+    "type": "Chevy",
     "stock": "ST002",
     "age": "1 year",
     "detailed": "No",
@@ -23,7 +25,8 @@
   },
   {
     "id": 3,
-    "vehicle": "Toyota Corolla",
+    "vehicle": "Ford",
+    "type": "Ford",
     "stock": "ST003",
     "age": "3 years",
     "detailed": "Yes",
@@ -34,7 +37,8 @@
   },
   {
     "id": 4,
-    "vehicle": "Toyota Camry",
+    "vehicle": "Toyota",
+    "type": "Toyota",
     "stock": "ST004",
     "age": "2 years",
     "detailed": "Yes",
@@ -45,7 +49,8 @@
   },
   {
     "id": 5,
-    "vehicle": "Toyota Corolla",
+    "vehicle": "Ford",
+    "type": "Ford",
     "stock": "ST005",
     "age": "3 years",
     "detailed": "No",
@@ -57,6 +62,7 @@
   {
     "id": 6,
     "vehicle": "Honda Civic",
+    "type": "others",
     "stock": "ST006",
     "age": "1 year",
     "detailed": "Yes",
@@ -67,7 +73,8 @@
   },
   {
     "id": 7,
-    "vehicle": "Honda Civic",
+    "vehicle": "Toyota",
+    "type": "Toyota",
     "stock": "ST007",
     "age": "1 year",
     "detailed": "Yes",
@@ -79,6 +86,7 @@
   {
     "id": 8,
     "vehicle": "Honda Civic",
+    "type": "others",
     "stock": "ST008",
     "age": "1 year",
     "detailed": "Yes",
