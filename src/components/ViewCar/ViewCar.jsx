@@ -140,7 +140,7 @@ const ViewCar = () => {
         <Layout>
             <div className="flex mt-8 flex-col justify-center lg:flex-row gap-6">
                 {/* Filter Section (Right) */}
-                <div className="lg:w-1/5">
+                <div className="lg:w-1/5 mx-2">
                     <div className="bg-white p-6 rounded-lg shadow-lg sticky top-6">
                         <h3 className="text-xl font-semibold mb-4 text-gray-800">Filter Cars</h3>
 
@@ -210,7 +210,7 @@ const ViewCar = () => {
                 </div>
 
                 {/* Car Cards Section (Left) */}
-                <div className="lg:w-3/5">
+                <div className="lg:w-3/5 mx-2">
                     <h2 className="text-2xl font-bold mb-4 text-gray-800">Available Cars</h2>
                     {isLoading ? (
                         <div className="flex justify-center items-center h-64">
