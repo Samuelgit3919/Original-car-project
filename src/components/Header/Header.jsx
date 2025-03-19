@@ -42,10 +42,10 @@ const Header = () => {
                             Home
                         </NavLink>
                         <NavLink
-                            to="/viewCar"
+                            to="/dashboard"
                             className={activeLinkStyle}
                         >
-                            ViewCars
+                            Dashboard
                         </NavLink>
 
                         {isLoggedIn && userRole === 'manager' && (

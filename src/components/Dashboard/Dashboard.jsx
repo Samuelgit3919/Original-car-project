@@ -10,7 +10,7 @@ const debounce = (func, delay) => {
     };
 };
 
-const ViewCar = () => {
+const Dashboard = () => {
     // Sample car data (you can replace this with dynamic data from an API)
     const initialCars = [
         {
@@ -265,4 +265,4 @@ const ViewCar = () => {
     );
 };
 
-export default ViewCar;
+export default Dashboard;
