@@ -158,7 +158,7 @@ export default function Login() {
                 <p className="mt-2 text-center text-xs text-gray-500">
                     Forgot password?{' '}
                     <button
-                        onClick={() => navigate('/forgot-password')} // Fixed typo in route
+                        onClick={() => navigate('/forgotPassword')} // Fixed typo in route
                         disabled={loading}
                         className="text-blue-600 hover:underline focus:outline-none disabled:opacity-50"
                     >
