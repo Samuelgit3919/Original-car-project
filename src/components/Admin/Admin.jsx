@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LogOut, Plus, Edit, Save, Trash } from 'lucide-react';
+import { Plus, Edit, Save, Trash, X } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ScaleLoader } from 'react-spinners';
@@ -212,16 +212,16 @@ const Admin = () => {
                         onClick={() => setShowAddForm(!showAddForm)}
                         className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700"
                     >
-                        <Plus className="h-5 w-5" />
+                        {showAddForm ? <X className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
                         {showAddForm ? 'Cancel' : 'Add Car'}
                     </button>
-                    <button
-                        onClick={() => navigate('/auth')}
+                    {/* <button
+                        onClick={() => navigate('/')}
                         className="bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-700"
                     >
                         <LogOut className="h-5 w-5" />
                         Logout
-                    </button>
+                    </button> */}
                 </div>
             </div>
 
@@ -298,7 +298,7 @@ const Admin = () => {
             )}
 
             {/* Vehicle Filters */}
-            <div className="mb-12 md:mx-24 p-6 bg-gray-50 rounded-lg shadow-md">
+            <div className="mb-12 mx-4 md:mx-24 p-6 bg-gray-50 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
@@ -361,7 +361,7 @@ const Admin = () => {
             </div>
 
             {/* Car Table */}
-            <div className="bg-white rounded-md md:mx-24 h-full text-sm text-center shadow-md overflow-x-auto">
+            <div className="bg-white mx-4 md:mx-24 h-full text-sm text-center shadow-md overflow-x-auto">
                 <table className="w-full table-auto">
                     <thead>
                         <tr>

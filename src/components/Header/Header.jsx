@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Car, Menu, X } from 'lucide-react';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Car, LogOut, Menu, X } from 'lucide-react';
+import ProtectedRoute from '../ProtetctedRoute';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
-    const isLoggedIn = localStorage.getItem('token'); // Simple auth check
+    const isLoggedIn = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        setIsMobileMenuOpen(false);
         navigate('/login');
     };
 
@@ -20,7 +24,7 @@ const Header = () => {
                     <div className="flex items-center">
                         <Car className="h-8 w-8 text-blue-600" />
                         <span className="ml-2 text-xl font-bold text-gray-900">
-                            AutoManage
+                            VehicleManagement
                         </span>
                     </div>
 
@@ -38,19 +42,35 @@ const Header = () => {
                         >
                             ViewCars
                         </Link>
-                        <Link
-                            to="/about"
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
-                        >
-                            About
-                        </Link>
+
+                        {isLoggedIn && userRole === 'manager' && (
+                            <Link
+                                to="/manager"
+                                className="text-gray-600 hover:text-blue-600 transition-colors"
+                            >
+                                Manager
+                            </Link>
+                        )}
+
+                        {isLoggedIn && userRole === 'admin' && (
+                            <Link
+                                to="/admin"
+                                className="text-gray-600 hover:text-blue-600 transition-colors"
+                            >
+                                Admin
+                            </Link>
+                        )}
 
                         {isLoggedIn ? (
                             <button
                                 onClick={handleLogout}
                                 className="ml-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
                             >
-                                Logout
+                                <span className="flex items-center">
+                                    <LogOut className="h-5 w-5 mr-2" />
+                                    Logout
+                                </span>
+
                             </button>
                         ) : (
                             <div className="flex items-center space-x-4">
@@ -92,19 +112,32 @@ const Header = () => {
                                 Home
                             </Link>
                             <Link
-                                to="/dashboard"
+                                to="/viewCar"
                                 className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
-                                Dashboard
+                                ViewCars
                             </Link>
-                            <Link
-                                to="/about"
-                                className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                About
-                            </Link>
+
+                            {isLoggedIn && userRole === 'manager' && (
+                                <Link
+                                    to="/manager"
+                                    className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Manager
+                                </Link>
+                            )}
+
+                            {isLoggedIn && userRole === 'admin' && (
+                                <Link
+                                    to="/admin"
+                                    className="block px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Admin
+                                </Link>
+                            )}
 
                             {isLoggedIn ? (
                                 <button
@@ -139,4 +172,5 @@ const Header = () => {
     );
 };
 
+// Export both components
 export default Header;

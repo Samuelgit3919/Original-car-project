@@ -64,18 +64,18 @@ const CarTable = () => {
                                 /> */}
                             </div>
                         </div>
-                        <button
+                        {/* <button
                             onClick={() => navigate('/login')}
                             className="bg-gray-600 w-26 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-700"
                         >
                             <LogOut className="h-5 w-5" />
                             Logout
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 
                 {/* Vehicle Filters */}
-                <div className="mb-12 mx-4 md:mx-4 p-6 bg-gray-50 rounded-lg shadow-md">
+                <div className="mb-12 mx-4 md:mx-4 p-6 bg-gray-50 rounded-lg shadow-md ">
                     <h2 className="text-xl font-semibold mb-4">Vehicle Filters</h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>

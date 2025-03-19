@@ -47,7 +47,7 @@ const WelcomePage = () => {
                                 Manager Login
                             </Link>
                             <Link
-                                to="/admin-login"
+                                to="/login"
                                 className="mt-3 sm:mt-0 inline-flex items-center px-6 py-3 border-2 border-blue-600 text-base font-medium rounded-full text-blue-600 bg-transparent hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
                             >
                                 Admin Access

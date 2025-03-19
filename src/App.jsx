@@ -8,16 +8,33 @@ import Admin from "./components/Admin/Admin"
 import SignUp from "./components/Auth/SignUp"
 import Manager from "./components/Manager/Manager"
 import ViewCar from "./components/ViewCar/ViewCar"
+import ForgotPassword from "./components/Auth/ForgotPassword"
+import ProtectedRoute from "./components/ProtetctedRoute";
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/manager" element={<Manager />} />
+        <Route
+          path="/manager"
+          element={
+            <ProtectedRoute allowedRole="manager">
+              <Manager />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/viewCar" element={<ViewCar />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
     </Router>
   )
