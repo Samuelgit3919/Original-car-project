@@ -41,12 +41,7 @@ const Header = () => {
                         >
                             Home
                         </NavLink>
-                        <NavLink
-                            to="/dashboard"
-                            className={activeLinkStyle}
-                        >
-                            Dashboard
-                        </NavLink>
+
 
                         {isLoggedIn && userRole === 'manager' && (
                             <NavLink

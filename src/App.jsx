@@ -7,7 +7,8 @@ import Home from "./components/Home/Home"
 import Admin from "./components/Admin/Admin"
 import SignUp from "./components/Auth/SignUp"
 import Manager from "./components/Manager/Manager"
-import Dashboard from "./components/Dashboard/Dashboard"
+import EmailConfirmation from "./components/EmailConfirmation/EmailConfirmation"
+import ConfirmEmail from "./components/ConfirmEmail/ConfirmEmail"
 import ForgotPassword from "./components/Auth/ForgotPassword"
 import ProtectedRoute from "./components/ProtetctedRoute";
 const App = () => {
@@ -32,7 +33,8 @@ const App = () => {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/emailConfirmation" element={<EmailConfirmation />} />
+        <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
